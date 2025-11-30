@@ -106,6 +106,59 @@ export const usePatientStore = defineStore('patient', {
       }
     },
 
+    async checkAppointmentConflicts(bookingData) {
+      try {
+        const response = await api.post('/appointments/conflicts/check', bookingData)
+        return { success: true, data: response.data }
+      } catch (error) {
+        return { 
+          success: false, 
+          error: error.response?.data?.error || 'Failed to check conflicts' 
+        }
+      }
+    },
+
+    async fetchAppointmentHistory(appointmentId) {
+      try {
+        const response = await api.get(`/patient/appointments/${appointmentId}/history`)
+        return { success: true, data: response.data }
+      } catch (error) {
+        return { 
+          success: false, 
+          error: error.response?.data?.error || 'Failed to fetch appointment history' 
+        }
+      }
+    },
+
+    async fetchCompleteMedicalHistory() {
+      try {
+        const response = await api.get('/patient/complete-history')
+        this.completeHistory = response.data.complete_history
+        return { success: true, data: response.data }
+      } catch (error) {
+        return { 
+          success: false, 
+          error: error.response?.data?.error || 'Failed to fetch complete medical history' 
+        }
+      }
+    },
+
+    async fetchBulkAvailability(doctorIds, startDate, endDate) {
+      try {
+        const response = await api.post('/appointments/bulk-availability', {
+          doctor_ids: doctorIds,
+          start_date: startDate,
+          end_date: endDate
+        })
+        return { success: true, data: response.data }
+      } catch (error) {
+        return { 
+          success: false, 
+          error: error.response?.data?.error || 'Failed to fetch bulk availability' 
+        }
+      }
+    },
+
     async cancelAppointment(appointmentId) {
       try {
         const response = await api.delete(`/patient/appointments/${appointmentId}`)
