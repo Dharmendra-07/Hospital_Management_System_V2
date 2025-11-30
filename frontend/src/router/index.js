@@ -29,10 +29,10 @@ const routes = [
   },
   // Doctor Routes
   {
-    path: '/doctor',
-    name: 'DoctorDashboard',
-    component: () => import('@/views/doctor/Dashboard.vue'),
-    meta: { requiresAuth: true, requiresDoctor: true }
+  path: '/doctor',
+  name: 'DoctorDashboard',
+  component: () => import('@/views/doctor/Dashboard.vue'),
+  meta: { requiresAuth: true, requiresDoctor: true }
   },
   // Patient Routes
   {
