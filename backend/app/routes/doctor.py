@@ -277,11 +277,11 @@ def get_patients():
       ).distinct()
       
       if search:
-          query = query.filter(
-              (Patient.first_name.ilike(f'%{search}%')) |
-              (Patient.last_name.ilike(f'%{search}%')) |
-              (Patient.phone.ilike(f'%{search}%'))
-          )
+        query = query.filter(
+          (Patient.first_name.ilike(f'%{search}%')) |
+          (Patient.last_name.ilike(f'%{search}%')) |
+          (Patient.phone.ilike(f'%{search}%'))
+        )
       
       patients = query.all()
       
